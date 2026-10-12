@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptive icon foreground: a simple open book glyph centered within the 108dp
+  viewport (kept inside the ~66dp safe zone). No raster assets are used anywhere
+  in this project, so the whole icon is vector-based.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Book body (both pages) -->
+    <path
+        android:fillColor="#F4F2FF"
+        android:pathData="M54,36
+            C44,30 30,29 21,31
+            L21,76
+            C30,74 44,75 54,80
+            C64,75 78,74 87,76
+            L87,31
+            C78,29 64,30 54,36 Z" />
+
+    <!-- Center spine -->
+    <path
+        android:strokeColor="#8A82B5"
+        android:strokeWidth="2"
+        android:pathData="M54,37 L54,79" />
+
+    <!-- A couple of page lines for detail -->
+    <path
+        android:strokeColor="#C8C2E6"
+        android:strokeWidth="1.5"
+        android:pathData="M28,44 L47,47 M28,53 L47,56 M61,47 L80,44 M61,56 L80,53" />
+</vector>

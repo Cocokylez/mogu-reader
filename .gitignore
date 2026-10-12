@@ -1,0 +1,25 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/app/build
+/app/release
+
+# Release signing — never commit. Losing or leaking this key breaks in-app
+# updates for every installed copy (Android rejects a signature change).
+/keystore.properties
+*.jks
+*.keystore
+
+# Built artifacts: releases are published to GitHub Releases, not the repo.
+*.apk
+*.zip
+
+# Leftover uiautomator dumps from on-device QA runs.
+qa-*.xml
