@@ -1,5 +1,8 @@
 package com.tome.reader.ui.navigation
 
+import com.tome.reader.update.UpdatePrompt
+import com.tome.reader.update.AppUpdater
+import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.launch
 import com.tome.reader.ui.welcome.WelcomeLetter
 import com.tome.reader.appContainer
@@ -143,6 +146,12 @@ fun HomeScreen(navController: NavHostController) {
                 onDismiss = { scope.launch { settingsRepo.setSeenWelcomeLetter(true) } },
             )
         }
+
+        // The app is sideloaded, so it looks after its own updates. This is
+        // silent unless a newer release actually exists, and throttled so it is
+        // at most one API call every few hours.
+        LaunchedEffect(Unit) { AppUpdater.checkInBackground(context) }
+        UpdatePrompt()
     }
 }
 

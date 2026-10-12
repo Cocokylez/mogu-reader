@@ -26,8 +26,8 @@ android {
         applicationId = "com.tome.reader"
         minSdk = 26
         targetSdk = 34
-        versionCode = 23
-        versionName = "2.9.0"
+        versionCode = 24
+        versionName = "2.10.0"
 
         // App icons are vector-based adaptive icons; keep them as vectors at runtime.
         vectorDrawables { useSupportLibrary = true }

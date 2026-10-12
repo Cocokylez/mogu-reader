@@ -1,5 +1,6 @@
 package com.tome.reader.ui.settings
 
+import com.tome.reader.update.AppUpdater
 import com.tome.reader.domain.model.TextLayoutMode
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.Article
@@ -81,6 +82,9 @@ import kotlinx.coroutines.withContext
 @Composable
 fun SettingsScreen() {
     val context = LocalContext.current
+    // Separate from any screen-scoped work: the update check should survive the
+    // reader navigating away from Settings while it runs.
+    val updateScope = rememberCoroutineScope()
     val vm: SettingsViewModel = viewModel(factory = SettingsViewModel.factory(context.appContainer))
     val settings by vm.settings.collectAsStateWithLifecycle()
 
@@ -224,8 +228,19 @@ fun SettingsScreen() {
             SectionLabel("Updates")
             SettingsCard {
                 SettingChoiceRow(
+                    icon = Icons.Default.Download,
+                    label = "App version",
+                    value = AppUpdater.currentVersion,
+                    onClick = {
+                        Toast.makeText(context, "Checking for a newer release…", Toast.LENGTH_SHORT)
+                            .show()
+                        updateScope.launch { AppUpdater.check(context) }
+                    },
+                )
+                SettingsDivider()
+                SettingChoiceRow(
                     icon = Icons.Default.Refresh,
-                    label = "Check for updates now",
+                    label = "Check followed series now",
                     value = "Run",
                     onClick = {
                         FollowUpdateWorker.runNow(context)

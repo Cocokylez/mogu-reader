@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Only the single folder the updater downloads into is shared. The installer is
+  another app, so it needs a content:// grant to read the APK; exposing just
+  this folder keeps everything else in the cache private.
+-->
+<paths>
+    <cache-path name="updates" path="updates/" />
+</paths>

@@ -4,8 +4,24 @@ Mogu Reader is a focused, ad-free Android reader for manga, manhwa, manhua, and 
 page-based comics. It reads local comic files and can browse supported online
 sources. It has no accounts, analytics, ads, or trackers.
 
-Current app version: **2.2.0** (`versionCode 12`). Android 8.0 (API 26) or newer
+Current app version: **2.10.0** (`versionCode 24`). Android 8.0 (API 26) or newer
 is required.
+
+## Install and updates
+
+Download the APK from the [latest release](https://github.com/Cocokylez/mogu-reader/releases/latest)
+and open it. Android will ask you to allow installing from this source the first
+time.
+
+After that the app keeps itself current: on launch it quietly checks this
+repository's latest release (at most once every six hours) and, when there is a
+newer version, offers to download and install it. You can also check on demand
+from **Settings -> Updates -> App version**.
+
+Android does not let an ordinary app install silently, so the final step is
+always a system confirmation. Updates only install over an existing copy when
+both APKs are signed with the same key, so always install the APK from a
+release here rather than one built locally.
 
 Version 2.0 implements the imported Tome Glass design canvas with an ambient glass
 backdrop, floating navigation, continue-reading hero, comic import sheet,
@@ -114,3 +130,33 @@ Online browsing and chapter downloads require `INTERNET` and network-state acces
 Notifications are optional and are used for downloads and followed-series updates.
 WorkManager supplies the wake-lock and boot permissions needed to reschedule those
 checks. Local reading works offline after content has been imported or downloaded.
+
+## Building
+
+```
+./gradlew assembleDebug          # debug build
+./gradlew assembleRelease        # signed release (needs keystore.properties)
+./gradlew testDebugUnitTest      # unit tests
+```
+
+`keystore.properties` holds the release signing key and is deliberately not in
+this repository. Without it the project still builds, but falls back to the
+debug key and produces an APK that cannot update an official install.
+
+To check that the online sources still work against the live sites:
+
+```
+./gradlew testDebugUnitTest --tests '*LiveSourceReadTest*' -DliveSources=true
+```
+
+It walks catalogue -> series -> chapter -> page images for every source and
+reports which ones are readable and which can page past the first screen.
+
+## Releasing
+
+```
+scripts/release.sh 2.10.1 "What changed"
+```
+
+Bumps the version, builds a signed APK, pushes the commit and tag, and publishes
+a GitHub Release. Installed copies pick it up on their next launch.
